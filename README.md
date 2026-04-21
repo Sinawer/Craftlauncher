@@ -35,7 +35,7 @@ Geliştirici ortamında projeyi test etmek veya katkıda bulunmak için sistemin
 
 1. Depoyu bilgisayarınıza klonlayın:
    ```bash
-   git clone https://github.com/Antigravity/craftlauncher.git
+   git clone https://github.com/Sinawer/Craftlauncher.git
    cd craftlauncher
    ```
 2. Gerekli kütüphane ve paketleri indirin:
