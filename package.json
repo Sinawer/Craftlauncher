@@ -1,0 +1,50 @@
+{
+  "name": "craftlauncher",
+  "version": "1.0.1",
+  "description": "Functional Minecraft Launcher with Custom UI",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "electron-builder"
+  },
+  "keywords": [
+    "minecraft",
+    "launcher",
+    "electron"
+  ],
+  "author": "Antigravity",
+  "license": "MIT",
+  "dependencies": {
+    "@xhayper/discord-rpc": "^1.3.3",
+    "axios": "^1.6.0",
+    "discord-rpc": "^4.0.1",
+    "electron-store": "^6.0.1",
+    "minecraft-launcher-core": "^3.18.2",
+    "msmc": "^5.0.5"
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1"
+  },
+  "build": {
+    "appId": "com.antigravity.craftlauncher",
+    "productName": "CraftLauncher",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "src/renderer/assets/icon.ico"
+    },
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": true
+    }
+  }
+}

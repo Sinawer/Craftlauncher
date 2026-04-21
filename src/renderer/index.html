@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CraftLauncher - Minecraft Launcher</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Arka Plan -->
+    <div class="bg-main-image"></div>
+    <div class="bg-overlay"></div>
+    <div class="bg-particles" id="particles"></div>
+
+    <!-- Ana Wrapper -->
+    <div class="launcher-wrapper">
+
+        <!-- Titlebar -->
+        <div class="titlebar">
+            <div class="titlebar-drag">
+                <div class="logo-icon-sm"><i class="fas fa-cube"></i></div>
+                <span>CraftLauncher</span>
+            </div>
+            <div class="titlebar-buttons">
+                <button onclick="window.electron.send('win-minimize')"><i class="fas fa-minus"></i></button>
+                <button onclick="window.electron.send('win-maximize')"><i class="fas fa-square"></i></button>
+                <button class="close-btn" onclick="window.electron.send('win-close')"><i
+                        class="fas fa-times"></i></button>
+            </div>
+        </div>
+
+        <div class="app-body">
+            <!-- Sol Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-logo">
+                    <div class="logo-icon"><i class="fas fa-cube"></i></div>
+                    <span class="logo-text">CraftLauncher</span>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <a href="#" class="nav-item active" data-page="home">
+                        <i class="fas fa-home"></i><span>Ana Sayfa</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="play">
+                        <i class="fas fa-play-circle"></i><span>Oyna</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="account">
+                        <i class="fas fa-user-circle"></i><span>Hesap</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="mods">
+                        <i class="fas fa-puzzle-piece"></i><span>Modlar</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="news">
+                        <i class="fas fa-newspaper"></i><span>Haberler</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="settings">
+                        <i class="fas fa-cog"></i><span>Ayarlar</span>
+                    </a>
+                </nav>
+
+                <div class="sidebar-footer">
+                    <div class="user-mini-card" id="sidebar-user-card">
+                        <div class="user-avatar-mini">
+                            <img id="sidebar-avatar" src="https://mc-heads.net/avatar/Steve/32" alt="Avatar">
+                        </div>
+                        <div class="user-info-mini">
+                            <span class="user-name-mini" id="sidebar-username">Giriş Yapılmadı</span>
+                            <span class="user-status" id="sidebar-status">● Çevrimdışı</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Ana İçerik -->
+            <main class="main-content">
+
+                <!-- ===== ANA SAYFA ===== -->
+                <section class="page active" id="page-home">
+                    <div class="page-header">
+                        <h1>Hoş Geldin, <span class="highlight" id="home-username">Oyuncu</span>! 👋</h1>
+                        <p>Minecraft dünyasına atlamaya hazır mısın?</p>
+                    </div>
+
+                    <div class="home-hero glass-panel">
+                        <div class="hero-bg"></div>
+                        <div class="hero-content">
+                            <div class="version-badge">VERSION 1.21.4</div>
+                            <h2 class="glow-text">Vanilla Minecraft</h2>
+                            <p>En son biyomları ve özellikleri keşfetmeye hemen başla.</p>
+                            <button class="btn-play-premium" onclick="showPage('play')">
+                                <i class="fas fa-play pulse"></i> ŞİMDİ OYNA
+                            </button>
+                        </div>
+                        <div class="hero-decoration"><i class="fas fa-cube cube-glow"></i></div>
+                    </div>
+
+                    <div class="home-bottom-grid">
+                        <div class="news-panel-premium glass-panel">
+                            <h3><i class="fas fa-bolt"></i> Güncellemeler</h3>
+                            <!--Ana Sayfa Haberler Modul-->
+                            <div class="news-scroll">
+                                <div class="news-item-premium">
+                                    <div class="news-icon"><i class="fas fa-leaf"></i></div>
+                                    <div class="news-info">
+                                        <strong>Yenilenmiş Arayüz</strong>
+                                        <small id="update1"></small>
+                                    </div>
+                                </div>
+                                <div class="news-item-premium">
+                                    <div class="news-icon"><i class="fas fa-bug"></i></div>
+                                    <div class="news-info">
+                                        <strong>Bug Fix-UI</strong>
+                                        <small id="bugfix-v1"></small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="btn-secondary" style="width: 100%; margin-top: 15px;"
+                                onclick="document.querySelector('[data-page=\'news\']').click();">Daha fazlası</button>
+                        </div>
+
+                        <div class="info-panel-premium glass-panel">
+                            <div class="info-item">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span id="ram-display">4 GB</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-user"></i>
+                                <span id="home-account-type">Offline Mod</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===== HABERLER SAYFASI ===== -->
+                <section class="page" id="page-news">
+
+
+                    <div class="page-header">
+                        <h1><i class="fas fa-newspaper"></i> Haberler</h1>
+                        <p>En son duyurular, güncellemeler ve yenilikler.</p>
+                    </div>
+
+                    <div class="news-panel-premium glass-panel">
+                        <h3><i class="fas fa-bolt"></i> Güncellemeler</h3>
+                        <div class="news-scroll">
+                            <div class="news-item-premium">
+                                <div class="news-icon"><i class="fas fa-puzzle-piece"></i></div>
+                                <div class="news-info">
+                                    <strong>Mod Ve Modpack Seçim Düzeltmesi</strong>
+                                    <small id="modfix-v1"></small>
+                                </div>
+                            </div>
+                            <div class="news-item-premium">
+                                <div class="news-icon"><i class="fas fa-leaf"></i></div>
+                                <div class="news-info">
+                                    <strong>Yenilenmiş Arayüz</strong>
+                                    <small id="update1"></small>
+                                </div>
+                            </div>
+                            <div class="news-item-premium">
+                                <div class="news-icon"><i class="fas fa-fire"></i></div>
+                                <div class="news-info">
+                                    <strong>Tema Güncellemesi</strong>
+                                    <small id="update2"></small>
+                                </div>
+                            </div>
+                            <div class="news-item-premium">
+                                <div class="news-icon"><i class="fas fa-bug"></i></div>
+                                <div class="news-info">
+                                    <strong>Bug Fix-UI</strong>
+                                    <small id="bugfix-v1"></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===== OYNA SAYFASI ===== -->
+                <section class="page" id="page-play">
+                    <div class="page-header">
+                        <h1><i class="fas fa-play-circle"></i> Oyna</h1>
+                        <p>Profilini seç ve maceraya atıl!</p>
+                    </div>
+
+                    <div class="play-layout">
+                        <div class="profiles-panel">
+                            <div class="panel-title">
+                                <span>Profiller</span>
+                                <button class="btn-small" onclick="openModal('new-profile-modal')">
+                                    <i class="fas fa-plus"></i> Yeni
+                                </button>
+                            </div>
+                            <div class="profile-list" id="profile-list">
+                                <!-- Profiller JS tarafindan yuklenecek -->
+                                <div class="empty-state" style="padding:20px; font-size:12px;">
+                                    <p>Henüz profil yok. "Yeni" butonuna basarak oluşturun.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile-detail-panel">
+                            <div class="selected-profile-header">
+                                <div class="selected-profile-icon vanilla" id="selected-icon"><i
+                                        class="fas fa-cube"></i></div>
+                                <div>
+                                    <h2 id="selected-name">Vanilla 1.21.4</h2>
+                                    <span class="version-tag" id="selected-version">1.21.4</span>
+                                    <span class="type-tag" id="selected-type">Vanilla</span>
+                                </div>
+                            </div>
+
+                            <div class="profile-details-grid">
+                                <div class="detail-item">
+                                    <label>Hesap</label>
+                                    <span id="play-account-name">Giriş Yapılmadı</span>
+                                </div>
+                                <div class="detail-item">
+                                    <label>RAM Ayırma</label>
+                                    <span id="ram-display">4 GB</span>
+                                </div>
+                            </div>
+
+                            <div class="ram-slider-section">
+                                <label>RAM Miktarı: <strong id="ram-label">4 GB</strong></label>
+                                <input type="range" min="1" max="16" value="4" class="ram-slider" id="ram-slider"
+                                    oninput="updateRam(this.value)">
+                                <div class="ram-marks"><span>1 GB</span><span>4 GB</span><span>8 GB</span><span>16
+                                        GB</span></div>
+                            </div>
+
+                            <div class="play-actions">
+                                <button class="btn-launch" id="btn-launch-game" onclick="launchGame()">
+                                    <i class="fas fa-play"></i> OYUNU BAŞLAT
+                                </button>
+                                <button class="btn-secondary" onclick="openModal('game-dir-modal')">
+                                    <i class="fas fa-folder"></i> Klasör
+                                </button>
+                                <button class="btn-danger-outline" onclick="deleteSelectedProfile()">
+                                    <i class="fas fa-trash"></i> Sil
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Launch Overlay -->
+                    <div class="launch-overlay" id="launch-overlay">
+                        <div class="launch-content">
+                            <div class="launch-logo"><i class="fas fa-cube spin"></i></div>
+                            <h2>Minecraft Başlatılıyor...</h2>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="launch-progress"></div>
+                            </div>
+                            <p id="launch-status">Dosyalar kontrol ediliyor...</p>
+                            <button class="btn-cancel" onclick="cancelLaunch()">İptal</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===== HESAP SAYFASI ===== -->
+                <section class="page" id="page-account">
+                    <div class="page-header">
+                        <h1><i class="fas fa-user-circle"></i> Hesap Yönetimi</h1>
+                        <p>Hesap türünü seç ve giriş yap</p>
+                    </div>
+
+                    <div class="account-page-layout">
+                        <!-- Hesap Türü Seçici -->
+                        <div class="account-type-tabs glass-panel">
+                            <h3><i class="fas fa-key"></i> Giriş Yöntemi</h3>
+                            <div class="auth-tabs">
+                                <button class="auth-tab active" data-auth="offline" onclick="switchAuthTab('offline')">
+                                    <i class="fas fa-wifi-slash"></i> Offline
+                                </button>
+                                <button class="auth-tab" data-auth="microsoft" onclick="switchAuthTab('microsoft')">
+                                    <i class="fab fa-microsoft"></i> Microsoft
+                                </button>
+                                <button class="auth-tab" data-auth="elyby" onclick="switchAuthTab('elyby')">
+                                    <i class="fas fa-shield-alt"></i> Ely.by
+                                </button>
+                            </div>
+
+                            <!-- Offline Form -->
+                            <div class="auth-form active" id="auth-form-offline">
+                                <div class="auth-form-desc">
+                                    <i class="fas fa-info-circle"></i>
+                                    Premium hesap gerektirmez. Sadece bir kullanıcı adı gir.
+                                </div>
+                                <div class="form-group">
+                                    <label>Kullanıcı Adı</label>
+                                    <input type="text" id="offline-username" class="form-input"
+                                        placeholder="Kullanıcı adını gir..." maxlength="16">
+                                </div>
+                                <button class="btn-launch auth-btn" onclick="loginOffline()">
+                                    <i class="fas fa-sign-in-alt"></i> Giriş Yap
+                                </button>
+                            </div>
+
+                            <!-- Microsoft Form -->
+                            <div class="auth-form" id="auth-form-microsoft">
+                                <div class="auth-form-desc">
+                                    <i class="fab fa-xbox"></i>
+                                    Microsoft hesabınla giriş yap. Premium Minecraft gerektirir.
+                                </div>
+                                <button class="btn-launch auth-btn ms-btn" onclick="loginMicrosoft()">
+                                    <i class="fab fa-microsoft"></i> Microsoft ile Giriş Yap
+                                </button>
+                                <p class="auth-note">Açılan pencerede Microsoft hesabına giriş yap.</p>
+                            </div>
+
+                            <!-- Ely.by Form -->
+                            <div class="auth-form" id="auth-form-elyby">
+                                <div class="auth-form-desc">
+                                    <i class="fas fa-shield-alt"></i>
+                                    Ely.by hesabınla giriş yap. Ücretsiz skin desteği sağlar.
+                                </div>
+                                <div class="form-group">
+                                    <label>E-posta / Kullanıcı Adı</label>
+                                    <input type="text" id="elyby-username" class="form-input"
+                                        placeholder="E-posta veya kullanıcı adı">
+                                </div>
+                                <div class="form-group">
+                                    <label>Şifre</label>
+                                    <input type="password" id="elyby-password" class="form-input"
+                                        placeholder="Şifrenizi girin">
+                                </div>
+                                <button class="btn-launch auth-btn" onclick="loginElyby()">
+                                    <i class="fas fa-sign-in-alt"></i> Ely.by ile Giriş Yap
+                                </button>
+                                <p class="auth-note">
+                                    <a href="https://account.ely.by/login" target="_blank" rel="noopener noreferrer"
+                                        style="color: var(--accent);">
+                                        Hesabın yok mu? Kayıt ol
+                                    </a>
+                                </p>
+
+                            </div>
+                        </div>
+
+                        <!-- Aktif Hesap Kartı -->
+                        <div class="account-active-card glass-panel" id="account-active-card">
+                            <h3><i class="fas fa-user-check"></i> Aktif Hesap</h3>
+                            <div class="active-account-display" id="active-account-display">
+                                <div class="active-avatar">
+                                    <img id="account-avatar" src="https://mc-heads.net/avatar/Steve/80" alt="Avatar">
+                                </div>
+                                <div class="active-info">
+                                    <span class="active-name" id="account-name">Giriş Yapılmadı</span>
+                                    <span class="active-type" id="account-type-badge">
+                                        <i class="fas fa-circle"></i> Çevrimdışı
+                                    </span>
+                                </div>
+                                <button class="btn-danger btn-logout" id="btn-logout" onclick="logoutAccount()"
+                                    style="display:none;">
+                                    <i class="fas fa-sign-out-alt"></i> Çıkış
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===== AYARLAR SAYFASI ===== -->
+                <section class="page" id="page-settings">
+                    <div class="page-header">
+                        <h1><i class="fas fa-palette"></i> Arayüz & Ayarlar</h1>
+                        <p>Launcher görünümünü biyoma göre değiştir!</p>
+                    </div>
+
+                    <div class="settings-page-layout">
+                        <!-- Tema Seçici -->
+
+                        <!-- Özelleştirme Butonu -->
+                        <div class="glass-panel"
+                            style="padding: 20px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <i class="fas fa-paint-brush" style="font-size: 20px; color: var(--accent);"></i>
+                                <div>
+                                    <strong style="font-size: 14px; display: block; margin-bottom: 2px;">Launcher'ı
+                                        Özelleştir</strong>
+                                    <span style="font-size: 12px; color: var(--text-muted);">Arka plan, bulanıklık,
+                                        parçacık ve daha fazlası</span>
+                                </div>
+                            </div>
+                            <button class="btn-launch" onclick="openCustomizePopup()">
+                                <i class="fas fa-palette"></i> Özelleştir
+                            </button>
+                        </div>
+
+                        <!-- Teknik Ayarlar -->
+                        <div class="technical-settings glass-panel">
+                            <h3><i class="fas fa-tools"></i> Sistem Ayarları</h3>
+                            <div class="setting-row">
+                                <span>Java Yolu:</span>
+                                <div class="path-box">
+                                    <input type="text"
+                                        placeholder="Örn: C:\Program Files\Java\jdk-21\bin\javaw.exe (Boş bırakılırsa sistemdeki Java kullanılır)"
+                                        value="" id="java-path-input" style="width: 100%;">
+                                    <button class="btn-secondary" onclick="openModal('game-dir-modal')">
+                                        <i class="fas fa-folder"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="setting-row">
+                                <span>Oyun Klasörü:</span>
+                                <div class="path-box">
+                                    <input type="text" value="C:\Users\${user}\AppData\Roaming\craftlauncher\minecraft"
+                                        id="java-path-input">
+                                    <button class="btn-secondary" onclick="openModal('game-dir-modal')">
+                                        <i class="fas fa-folder"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="setting-row">
+                                <span>Oyun Sonrası Launcher:</span>
+                                <label class="toggle-premium">
+                                    <input type="checkbox" checked id="auto-close-toggle">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="settings-actions">
+                            <button class="btn-save-premium" onclick="showToast('Ayarlar kaydedildi!', 'success')">
+                                <i class="fas fa-save"></i> AYARLARI KAYDET
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===== MODLAR SAYFASI ===== -->
+                <section class="page" id="page-mods">
+                    <div class="page-header">
+                        <h1><i class="fas fa-puzzle-piece"></i> Mod Keşfet</h1>
+                        <p>Modrinth üzerinden binlerce modu ve modpack'i keşfet!</p>
+                    </div>
+
+                    <!-- Tab Switcher -->
+                    <div class="mods-tab-bar">
+                        <button class="mods-tab active" data-tab="mods-view" onclick="switchModsTab('mods-view')">
+                            <i class="fas fa-puzzle-piece"></i> Modlar
+                        </button>
+                        <button class="mods-tab" data-tab="modpacks-view" onclick="switchModsTab('modpacks-view')">
+                            <i class="fas fa-box-open"></i> Modpack'ler
+                        </button>
+                    </div>
+
+                    <!-- ===== MOD VIEW ===== -->
+                    <div class="mods-tab-content active" id="mods-view">
+                        <div class="mods-container">
+                            <div class="mods-search-bar glass-panel">
+                                <div class="search-input-wrapper">
+                                    <i class="fas fa-search"></i>
+                                    <input type="text" id="mod-search-input"
+                                        placeholder="Mod ara... (ör: Sodium, Iris, Waystones)"
+                                        onkeyup="if(event.key==='Enter') searchModsModrinth()">
+                                </div>
+                                <button class="btn-launch" onclick="searchModsModrinth()"
+                                    style="margin-right:10px;">Ara</button>
+
+                                <div class="current-mod-profile glass-panel" id="mods-active-profile-display">
+                                    <i class="fas fa-cube"></i>
+                                    <span>Vanilla Default</span>
+                                </div>
+
+                                <div class="search-bar-actions">
+                                    <button class="btn-secondary btn-icon-only" onclick="openProfileSelector()"
+                                        title="Profil Seç">
+                                        <i class="fas fa-list-ul"></i>
+                                    </button>
+                                    <button class="btn-secondary btn-icon-only" onclick="openModal('new-profile-modal')"
+                                        title="Yeni Profil">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="mods-content-layout">
+                                <aside class="mods-filters glass-panel">
+                                    <h3>Filtreler</h3>
+                                    <div class="filter-group">
+                                        <label>Loader</label>
+                                        <div class="checkbox-group">
+                                            <label><input type="checkbox" class="mod-loader-filter" value="fabric"
+                                                    checked>
+                                                Fabric</label>
+                                            <label><input type="checkbox" class="mod-loader-filter" value="forge">
+                                                Forge</label>
+                                            <label><input type="checkbox" class="mod-loader-filter" value="quilt">
+                                                Quilt</label>
+                                        </div>
+                                    </div>
+                                    <div class="filter-group">
+                                        <label>Sürüm</label>
+                                        <select class="form-select" id="mod-version-filter">
+                                            <option value="">Tümü</option>
+                                            <option value="1.21.4">1.21.4</option>
+                                            <option value="1.21">1.21.x</option>
+                                            <option value="1.20.1">1.20.1</option>
+                                            <option value="1.19.2">1.19.2</option>
+                                        </select>
+                                    </div>
+                                </aside>
+
+                                <div class="mods-results-container"
+                                    style="flex: 1; display: flex; flex-direction: column; gap: 15px; min-width: 0;">
+                                    <div class="mods-results-grid" id="mods-results">
+                                        <div class="empty-state">
+                                            <i class="fas fa-search fa-3x"></i>
+                                            <p>Aramak istediğin modun adını yaz.</p>
+                                        </div>
+                                    </div>
+                                    <div class="mods-pagination glass-panel" id="mods-pagination"
+                                        style="display: none; justify-content: space-between; align-items: center; padding: 10px 20px; border-radius: 8px;">
+                                        <button class="btn-secondary" id="btn-prev-page" onclick="changeModPage(-1)"><i
+                                                class="fas fa-chevron-left"></i> Önceki Sayfa</button>
+                                        <span id="mods-page-info" style="font-weight: bold;">Sayfa 1</span>
+                                        <button class="btn-secondary" id="btn-next-page"
+                                            onclick="changeModPage(1)">Sonraki
+                                            Sayfa <i class="fas fa-chevron-right"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== MODPACK VIEW ===== -->
+                    <div class="mods-tab-content" id="modpacks-view">
+                        <div class="mods-container">
+                            <div class="mods-search-bar glass-panel">
+                                <div class="search-input-wrapper">
+                                    <i class="fas fa-search"></i>
+                                    <input type="text" id="modpack-search-input"
+                                        placeholder="Modpack ara... (ör: Better MC, Cobblemon, All the Mods)"
+                                        onkeyup="if(event.key==='Enter') searchModpacksModrinth()">
+                                </div>
+                                <button class="btn-launch" onclick="searchModpacksModrinth()">
+                                    <i class="fas fa-search"></i> Ara
+                                </button>
+                            </div>
+
+                            <div class="mods-content-layout">
+                                <aside class="mods-filters glass-panel">
+                                    <h3><i class="fas fa-filter"></i> Filtreler</h3>
+                                    <div class="filter-group">
+                                        <label>Loader</label>
+                                        <div class="checkbox-group">
+                                            <label><input type="checkbox" class="modpack-loader-filter" value="fabric"
+                                                    checked>
+                                                Fabric</label>
+                                            <label><input type="checkbox" class="modpack-loader-filter" value="forge">
+                                                Forge</label>
+                                            <label><input type="checkbox" class="modpack-loader-filter" value="quilt">
+                                                Quilt</label>
+                                            <label><input type="checkbox" class="modpack-loader-filter"
+                                                    value="neoforge">
+                                                NeoForge</label>
+                                        </div>
+                                    </div>
+                                    <div class="filter-group">
+                                        <label>Sürüm</label>
+                                        <select class="form-select" id="modpack-version-filter">
+                                            <option value="">Tümü</option>
+                                            <option value="1.21.4">1.21.4</option>
+                                            <option value="1.21">1.21.x</option>
+                                            <option value="1.20.1">1.20.1</option>
+                                            <option value="1.19.2">1.19.2</option>
+                                        </select>
+                                    </div>
+                                    <div class="filter-group">
+                                        <label>Sıralama</label>
+                                        <select class="form-select" id="modpack-sort-filter">
+                                            <option value="relevance">İlgili</option>
+                                            <option value="downloads">İndirme Sayısı</option>
+                                            <option value="follows">Takip Sayısı</option>
+                                            <option value="newest">En Yeni</option>
+                                            <option value="updated">Son Güncellenen</option>
+                                        </select>
+                                    </div>
+                                </aside>
+
+                                <div class="mods-results-container"
+                                    style="flex: 1; display: flex; flex-direction: column; gap: 15px; min-width: 0;">
+                                    <div class="mods-results-grid" id="modpack-results">
+                                        <div class="empty-state">
+                                            <i class="fas fa-box-open fa-3x"></i>
+                                            <p>Aramak istediğin modpack'in adını yaz.</p>
+                                            <p style="font-size:12px; color:var(--text-muted);">Modrinth üzerinden hazır
+                                                modpack'leri keşfet ve kur!</p>
+                                        </div>
+                                    </div>
+                                    <div class="mods-pagination glass-panel" id="modpack-pagination"
+                                        style="display: none; justify-content: space-between; align-items: center; padding: 10px 20px; border-radius: 8px;">
+                                        <button class="btn-secondary" id="btn-prev-modpack-page"
+                                            onclick="changeModpackPage(-1)"><i class="fas fa-chevron-left"></i> Önceki
+                                            Sayfa</button>
+                                        <span id="modpack-page-info" style="font-weight: bold;">Sayfa 1</span>
+                                        <button class="btn-secondary" id="btn-next-modpack-page"
+                                            onclick="changeModpackPage(1)">Sonraki
+                                            Sayfa <i class="fas fa-chevron-right"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- MODALLER -->
+
+    <!-- Yeni Profil Modal -->
+    <div class="modal-overlay" id="new-profile-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-plus-circle"></i> Yeni Profil Oluştur</h3>
+                <button class="modal-close" onclick="closeModal('new-profile-modal')"><i
+                        class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Profil Adı</label>
+                    <input type="text" placeholder="ör. Survival World" class="form-input" id="new-profile-name">
+                </div>
+                <div class="form-group">
+                    <label>Minecraft Sürümü</label>
+                    <select class="form-select" id="new-profile-version">
+                        <option>1.21.4</option>
+                        <option>1.20.1</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Loader Türü</label>
+                    <select class="form-select" id="new-profile-type">
+                        <option>Vanilla</option>
+                        <option>Fabric</option>
+                        <option>Forge</option>
+                        <option>Quilt</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('new-profile-modal')">İptal</button>
+                <button class="btn-launch" onclick="createProfile()"><i class="fas fa-check"></i> Oluştur</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Oyun Klasörü Modal -->
+    <div class="modal-overlay" id="game-dir-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-folder-open"></i> Oyun Klasörü</h3>
+                <button class="modal-close" onclick="closeModal('game-dir-modal')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <p style="color:#aaa; margin-bottom:12px;">Oyun dosyaları aşağıdaki klasörde saklanır:</p>
+                <div class="path-display"><i class="fas fa-folder"></i><span id="game-path-display">Yükleniyor...</span>
+                </div>
+                <div class="folder-quick-links">
+                    <button class="folder-link" onclick="window.electron.send('open-folder', 'saves')"><i
+                            class="fas fa-cubes"></i> Saves</button>
+                    <button class="folder-link" onclick="window.electron.send('open-folder', 'mods')"><i
+                            class="fas fa-puzzle-piece"></i> Mods</button>
+                    <button class="folder-link" onclick="window.electron.send('open-folder', 'screenshots')"><i
+                            class="fas fa-image"></i> Screenshots</button>
+                    <button class="folder-link" onclick="window.electron.send('open-folder', 'logs')"><i
+                            class="fas fa-file-alt"></i> Logs</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('game-dir-modal')">Kapat</button>
+                <button class="btn-launch" onclick="window.electron.send('open-folder')"><i
+                        class="fas fa-external-link-alt"></i> Klasörü Aç</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mod Detay Modal -->
+    <div class="modal-overlay" id="mod-detail-modal">
+        <div class="modal modal-lg">
+            <div class="modal-header">
+                <h3 id="mod-detail-title">Mod Detayları</h3>
+                <button class="modal-close" onclick="closeModal('mod-detail-modal')"><i
+                        class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body mod-detail-body">
+                <div class="mod-detail-header">
+                    <img id="mod-detail-icon" src="" alt="Icon">
+                    <div class="mod-detail-meta">
+                        <h2 id="mod-detail-name">Mod Name</h2>
+                        <p id="mod-detail-author">by author</p>
+                        <div class="mod-tags" id="mod-detail-tags"></div>
+                    </div>
+                </div>
+                <div class="mod-detail-desc" id="mod-detail-desc"></div>
+                <div class="install-setup-panel">
+                    <h4><i class="fas fa-microchip"></i> Kurulum Ayarları</h4>
+                    <div class="form-group">
+                        <label>Hedef Profil:</label>
+                        <select class="form-select" id="mod-install-profile-select"
+                            style="width:100%; border-color:var(--accent);">
+                            <!-- Profiller JS ile dolacak -->
+                        </select>
+                        <p style="font-size:10px; color:var(--text-muted); margin-top:8px;">
+                            * Modlar sadece seçilen profilin <code>mods/</code> klasörüne kurulur.
+                        </p>
+                    </div>
+                </div>
+
+                <h4>Mod Sürümleri</h4>
+                <div class="version-list-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Sürüm</th>
+                                <th>Loader</th>
+                                <th>Tarih</th>
+                                <th>İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody id="mod-versions-list">
+                            <!-- JS ile dolacak -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profil Seçici Modal -->
+    <div class="modal-overlay" id="profile-selector-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-list-ul"></i> Hedef Profili Seç</h3>
+                <button class="modal-close" onclick="closeModal('profile-selector-modal')"><i
+                        class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">Modların yükleneceği profili
+                    seçin:</p>
+                <div class="selector-list" id="profile-selector-list">
+                    <!-- JS ile dolacak -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modpack Detay Modal -->
+    <div class="modal-overlay" id="modpack-detail-modal">
+        <div class="modal modal-lg">
+            <div class="modal-header">
+                <h3 id="modpack-detail-title">Modpack Detayları</h3>
+                <button class="modal-close" onclick="closeModal('modpack-detail-modal')"><i
+                        class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body mod-detail-body">
+                <div class="mod-detail-header">
+                    <img id="modpack-detail-icon" src="" alt="Icon">
+                    <div class="mod-detail-meta">
+                        <h2 id="modpack-detail-name">Modpack Name</h2>
+                        <p id="modpack-detail-author">by author</p>
+                        <div class="modpack-stats-row">
+                            <span class="modpack-stat"><i class="fas fa-download"></i> <span
+                                    id="modpack-detail-downloads">0</span></span>
+                            <span class="modpack-stat"><i class="fas fa-heart"></i> <span
+                                    id="modpack-detail-follows">0</span></span>
+                        </div>
+                        <div class="mod-tags" id="modpack-detail-tags"></div>
+                    </div>
+                </div>
+                <div class="mod-detail-desc" id="modpack-detail-desc"></div>
+
+                <h4><i class="fas fa-box-open"></i> Modpack Sürümleri</h4>
+                <div class="version-list-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Sürüm</th>
+                                <th>Loader</th>
+                                <th>Tarih</th>
+                                <th>Boyut</th>
+                                <th>İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody id="modpack-versions-list">
+                            <!-- JS ile dolacak -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Özelleştirme Popup -->
+    <div class="customize-popup-overlay" id="customize-popup" onclick="if(event.target===this)closeCustomizePopup()">
+        <div class="customize-popup">
+            <div class="customize-popup-header">
+                <h2><i class="fas fa-paint-brush"></i> Launcher'ı Özelleştir</h2>
+                <button class="customize-popup-close" onclick="closeCustomizePopup()"><i
+                        class="fas fa-times"></i></button>
+            </div>
+            <div class="customize-popup-body">
+
+                <!-- Tema Seçimi -->
+                <div class="customize-section">
+                    <div class="customize-section-title"><i class="fas fa-swatchbook"></i> Tema Seçimi</div>
+                    <div class="customize-theme-grid" id="customize-theme-grid">
+                        <div class="customize-theme-item active" data-theme="default"
+                            onclick="selectCustomizeTheme(this, 'default')">
+                            <div class="cti-preview" style="background-image:url('assets/themes/forest.png')"></div>
+                            <span class="cti-name">Klasik Orman</span>
+                            <div class="cti-check"><i class="fas fa-check"></i></div>
+                        </div>
+                        <div class="customize-theme-item" data-theme="nether"
+                            onclick="selectCustomizeTheme(this, 'nether')">
+                            <div class="cti-preview" style="background-image:url('assets/themes/nether.png')"></div>
+                            <span class="cti-name">Nether Kalesi</span>
+                            <div class="cti-check"><i class="fas fa-check"></i></div>
+                        </div>
+                        <div class="customize-theme-item" data-theme="warden"
+                            onclick="selectCustomizeTheme(this, 'warden')">
+                            <div class="cti-preview" style="background-image:url('assets/themes/warden.png')"></div>
+                            <span class="cti-name">Derin Karanlık</span>
+                            <div class="cti-check"><i class="fas fa-check"></i></div>
+                        </div>
+                        <div class="customize-theme-item" data-theme="ocean"
+                            onclick="selectCustomizeTheme(this, 'ocean')">
+                            <div class="cti-preview" style="background-image:url('assets/themes/ocean.png')"></div>
+                            <span class="cti-name">Okyanus</span>
+                            <div class="cti-check"><i class="fas fa-check"></i></div>
+                        </div>
+                        <div class="customize-theme-item" data-theme="beach"
+                            onclick="selectCustomizeTheme(this, 'beach')">
+                            <div class="cti-preview" style="background-image:url('assets/themes/beach.png')"></div>
+                            <span class="cti-name">Kumsal</span>
+                            <div class="cti-check"><i class="fas fa-check"></i></div>
+                        </div>
+                        <div class="customize-theme-item" data-theme="end" onclick="selectCustomizeTheme(this, 'end')">
+                            <div class="cti-preview" style="background-image:url('assets/themes/end.png')"></div>
+                            <span class="cti-name">End Boyutu</span>
+                            <div class="cti-check"><i class="fas fa-check"></i></div>
+                        </div>
+                        <div class="customize-theme-item" data-theme="cherry"
+                            onclick="selectCustomizeTheme(this, 'cherry')">
+                            <div class="cti-preview" style="background-image:url('assets/themes/cherry.png')"></div>
+                            <span class="cti-name">Kiraz Çiçeği</span>
+                            <div class="cti-check"><i class="fas fa-check"></i></div>
+                        </div>
+                        <div class="customize-theme-item" data-theme="arctic"
+                            onclick="selectCustomizeTheme(this, 'arctic')">
+                            <div class="cti-preview" style="background-image:url('assets/themes/arctic.png')"></div>
+                            <span class="cti-name">Kutup</span>
+                            <div class="cti-check"><i class="fas fa-check"></i></div>
+                        </div>
+                        <div class="customize-theme-item" data-theme="mushroom"
+                            onclick="selectCustomizeTheme(this, 'mushroom')">
+                            <div class="cti-preview" style="background-image:url('assets/themes/mushroom.png')"></div>
+                            <span class="cti-name">Mantar Adası</span>
+                            <div class="cti-check"><i class="fas fa-check"></i></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Arka Plan Ayarları -->
+                <div class="customize-section">
+                    <div class="customize-section-title"><i class="fas fa-image"></i> Arka Plan Ayarları</div>
+                    <div class="customize-slider-row">
+                        <span class="csr-label"><i class="fas fa-eye"></i> Bulanıklık</span>
+                        <input type="range" min="0" max="80" value="40" id="custom-blur"
+                            oninput="updateCustomBlur(this.value)">
+                        <span class="csr-value" id="custom-blur-val">40px</span>
+                    </div>
+                    <div class="customize-slider-row">
+                        <span class="csr-label"><i class="fas fa-sun"></i> Parlaklık</span>
+                        <input type="range" min="20" max="100" value="60" id="custom-brightness"
+                            oninput="updateCustomBrightness(this.value)">
+                        <span class="csr-value" id="custom-brightness-val">60%</span>
+                    </div>
+                    <div class="customize-slider-row">
+                        <span class="csr-label"><i class="fas fa-adjust"></i> Opaklık</span>
+                        <input type="range" min="0" max="100" value="100" id="custom-opacity"
+                            oninput="updateCustomOpacity(this.value)">
+                        <span class="csr-value" id="custom-opacity-val">100%</span>
+                    </div>
+                </div>
+
+                <!-- Arayüz Ayarları -->
+                <div class="customize-section">
+                    <div class="customize-section-title"><i class="fas fa-sliders-h"></i> Arayüz Ayarları</div>
+                    <div class="customize-toggle-row">
+                        <span class="ctr-label"><i class="fas fa-snowflake"></i> Parçacık Efekti</span>
+                        <label class="toggle">
+                            <input type="checkbox" checked id="custom-particles"
+                                onchange="toggleCustomParticles(this.checked)">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="customize-slider-row">
+                        <span class="csr-label"><i class="fas fa-columns"></i> Sidebar Opaklık</span>
+                        <input type="range" min="50" max="100" value="95" id="custom-sidebar-opacity"
+                            oninput="updateSidebarOpacity(this.value)">
+                        <span class="csr-value" id="custom-sidebar-val">95%</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>
