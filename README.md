@@ -4,9 +4,9 @@
 
 # Sosyal Ağlar
 
-- **İnstagram :: https://www.instagram.com/sinanmehmet0/
-- **Website :: https://sinawer.com.tr/
-- **Discord :: Sunucu Bakımda
+- İnstagram :: https://www.instagram.com/sinanmehmet0/
+- Website :: https://sinawer.com.tr/
+- Discord :: Sunucu Bakımda
 
 
 ## 🌟 Özellikler
