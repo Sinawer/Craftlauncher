@@ -2,6 +2,13 @@
 
 **CraftLauncher**, Electron ve Node.js teknolojileriyle geliştirilmiş, modern, hızlı ve özelleştirilebilir bir Minecraft başlatıcısıdır (Launcher). Vanilla Minecraft oynamak, projeleri yönetmek, hızlıca modlar arayıp kurmak ve farklı giriş (login) yöntemleriyle kolayca oyuna bağlanmak için tasarlanmıştır.
 
+# Sosyal Ağlar
+
+**İnstagram :: https://www.instagram.com/sinanmehmet0/
+**Website :: https://sinawer.com.tr/
+**Discord :: Sunucu Bakımda
+
+
 ## 🌟 Özellikler
 
 - **Çoklu Giriş Desteği:** 
